@@ -1,0 +1,10 @@
+# comments begin with #
+# if soft links should be followed start line with ^
+# if root path should be added end line with ^
+#Documents^,Documents
+#Documents/work/2024-hostinger/facturacion^,Documents/work/2024-hostinger/facturacion
+Files/Brain^,Brain
+#Music^,Music
+^conf^,Linux
+#/media/fabi/6880307480304B38/Pictures,Pictures/Important
+#/media/fabi/6880307480304B38/Program_installers,Program_installers

@@ -1,0 +1,3 @@
+option,prefix,sync,path
+o,onedrive:,onedrive.csv,/home/fabi/
+g,gdrive:,google.csv,/home/fabi/

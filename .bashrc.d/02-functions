@@ -1,0 +1,77 @@
+
+# Function to tag MP3 songs
+# Use: tag filename artist title comment
+function tag {
+    if [ -z "$1" ]; then
+        echo "Usage: tag filename artist title comment"
+        return 1
+    fi
+
+    file="$1"
+    artist="$2"
+    title="$3"
+    comment="$4"
+
+    id3v2 -D "$file" &>/dev/null
+    id3v2 -t "$title" -a "$artist" -c "$comment" "$file"
+    echo "Success: tagged file $file."
+}
+
+
+
+
+# suspend wrapper while xubuntu 20.04 still takes 30 secs to start,
+# and conflicts with autolock of xfce4-power-manager.
+#function mysuspend {
+    #sudo systemctl suspend
+    #i3lock-fancy
+#}
+
+
+# download video files from .m3u8 playlist files
+function m3u8 {
+    if test -z "$1" || test -z "$2"; then
+        echo "Usage: m3u8 URL filename"
+        return 1
+    fi
+
+    URL="$1"
+    filename="$2"
+
+    ffmpeg -i "$URL" -c copy -bsf:a aac_adtstoasc "$filename"
+}
+
+
+
+# 25.10.23
+# access shared windows folders
+function winshare {
+    if [ "$1" = "-u" ]; then
+        sudo umount ~fabi/WinShare
+        return
+    fi
+
+    if test -z "$1" || test -z "$2" || test -z "$3" || test -z "$4"; then
+        echo "Usage: share IP folder username password"
+        return 1
+    fi
+
+    sudo mount -t cifs -o user,gid=fabi,uid=fabi,username="$3",password="$4"\
+        //$1/$2 ~fabi/WinShare
+}
+
+
+
+# syncthing conflicts
+
+function mysyncconflicts {
+    conf=`find /mnt/Files/Brain -noleaf -iname "*conflict*"`
+    tmp="/tmp/syncthing-conflicts.txt"
+
+    if [ -z "$conf" ]; then
+        echo "No conflicts"
+    else
+        echo -e "Conflicts found.\nView on $tmp"
+        echo "$conf" > "$tmp"
+    fi
+}

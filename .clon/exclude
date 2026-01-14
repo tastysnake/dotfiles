@@ -1,0 +1,20 @@
+Thumbs.db*
+~*
+AlbumArt*
+System Volume Information
+*.bak
+*.bbl
+*.blg
+desktop.ini
+*.swp
+*.swo
+*.aux
+*.fdb_latexmk
+*.fls
+*.lod
+*.tdo
+*.xdv
+*.synctex.gz
+*.out
+*.tdo
+*.toc

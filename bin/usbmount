@@ -1,0 +1,110 @@
+#!/bin/bash
+
+## Usage:
+
+# usbmount [-u]
+
+# It mounts automatically sd[bcd]1, assuming only first partition is important
+# (as expected of a pendrive)
+# Option -u: unmount toggle
+
+## REQUIRES appropriate fstab entries, like so:
+
+# /dev/sdb1   /mnt/sdb1   auto    user,rw,noauto,noexec    0   0
+# /dev/sdc1   /mnt/sdc1   auto    user,rw,noauto,noexec    0   0
+# /dev/sdd1   /mnt/sdd1   auto    user,rw,noauto,noexec    0   0
+
+# Here auto means "detect file system automagically", and user means
+# any user can mount.
+
+
+umount="$1"
+
+
+        # name of the symlink directory
+        symlink_dir="/home/fabi/usb"
+
+if [ ! -d "$symlink_dir" ]; then
+    mkdir "$symlink_dir"
+fi
+
+
+for n in sd{c..e}1; do
+    if [ -b /dev/"$n" ]; then
+        # look if it's mounted and where
+        mount="$(lsblk -l -o NAME,MOUNTPOINT | sed 's/  */ /g' | grep "$n" | cut -d " " -f 2)"
+
+        # find out if it has a label
+        label="$(lsblk -l -o NAME,LABEL | sed 's/  */ /g' | grep "$n"| cut -d " " -f 2)"
+            if [ -z "$label" ]; then
+                haslabel=no
+            fi
+
+        # mount or unmount?
+        case "$1" in
+            -u) # unmount
+                    umount /mnt/"$n"
+                    if [ "$haslabel" = "no" ]; then
+                        echo "Device /dev/"$n" unmounted."
+                        notify-send "Device /dev/"$n" unmounted."
+                    else
+                        echo "Device /dev/"$label" unmounted."
+                        notify-send "Device "$label" unmounted."
+                    fi
+
+                    # remove any symlinks
+                     if [ "$haslabel" = "no" ]; then
+                         rm "$symlink_dir"/"$n" &>/dev/null
+                     else
+                         rm "$symlink_dir"/"$label" &>/dev/null
+                     fi
+            ;;
+
+            *) # mount
+
+                # mount if it isn't
+                if [ -z "$mount" ]; then
+                    mount /mnt/"$n"
+                    mount="/mnt/$n"
+
+                    # find out if it has a label
+                    label="$(lsblk -l -o NAME,LABEL | sed 's/  */ /g' | grep "$n"| cut -d " " -f 2)"
+
+                    if [ -z "$label" ]; then
+                        haslabel=no
+                    fi
+
+                    # create symlink as sdx if no label, or label if it has one
+
+                        if [ "$haslabel" = "no" ]; then
+                            ln -s /mnt/"$n" "$symlink_dir"/"$n"
+                            echo "Device mounted in "$mount"."
+                            notify-send "Device available in "$symlink_dir"/"$n"."
+                        else
+                            ln -s /mnt/"$n" "$symlink_dir"/"$label"
+                            echo "Device mounted in "$mount"."
+                            notify-send "Device available in "$symlink_dir"/"$label"."
+                        fi
+                    
+
+                # inform if it is already mounted
+                else
+                    if [ "$haslabel" = "no" ]; then
+                        echo "Device "$n" is connected and mounted in "$mount"."
+                        notify-send "Device available in "$symlink_dir"/"$n"."
+                    else
+                        echo "Device "$label" is connected and mounted in "$mount"."
+                        notify-send "Device available in "$symlink_dir"/"$label"."
+                    fi
+                fi
+
+            ;;
+        esac
+
+    else
+        # not connected; do nothing
+        echo "Device /dev/"$n" not connected."
+        #notify-send "Device /dev/"$n" not connected."
+    fi
+
+done

@@ -1,0 +1,65 @@
+! 4/3/2019 https://dict.leo.org
+dict.leo.org##.as-oil-content-overlay
+
+! 4/4/2019 https://hb.redlink.com.ar
+hb.redlink.com.ar##.cuerpo
+
+! 4/26/2019 https://hb.redlink.com.ar
+hb.redlink.com.ar###pie
+hb.redlink.com.ar###derecho > .contenidoDeLaEntidad
+
+! 1/17/2020 https://dict.leo.org
+dict.leo.org##.l-dict-adv
+
+! 6/18/2020 https://hb.redlink.com.ar
+||hb.redlink.com.ar/bancobsf/entidades/banco.bsf.v5/vista/imagenes/login/bg_login1.jpg$image
+
+! 2021-05-01 https://www.opensubtitles.org
+www.opensubtitles.org##h3 > div > p
+
+! 2021-11-22 https://9gag.com
+9gag.com##.signup-list-banner
+
+! 2022-01-01 https://youtube.com
+! (youtube cards, at the end of vids)
+youtube.com##.ytp-ce-element
+! 2025.12.01 youtube lite ad
+youtube.com##.ytd-statement-banner-renderer
+
+! 2022-04-26 https://www.economist.com
+www.economist.com##._podcast-promo
+www.economist.com##._newsletter-promo-container
+www.economist.com##.layout-article-promo
+
+! 2022-05-23 https://www.sciencedirect.com
+www.sciencedirect.com##.login-message-container
+
+! 2022-06-08 https://stream.futbolparatodos.online
+||www.twitch.tv/embed/futbolparatodosnet/chat$subdocument
+
+! 2022-07-27 https://9gag.com
+! Block promoted posts
+9gag.com##div article:has-text(Promoted)
+
+! 2022-07-30 https://www.youtube.com
+www.youtube.com##.ytd-rich-section-renderer.style-scope > .ytd-rich-shelf-renderer.style-scope
+
+! 2023-10-06 https://www.youtube.com
+! Block pop-up that stops video and warns that
+! adblockers are not allowed on YouTube
+!www.youtube.com##.opened
+!www.youtube.com##ytd-popup-container.ytd-app.style-scope
+
+! 18.09.2024 https://unsplash.com
+! Remove all Unsplash+ images
+unsplash.com##figure:has(img[src*="premium"])
+
+! 12.12.2024 https://notalwaysright.com
+! Remove comments box and suggestions
+notalwaysright.com###disqus_recommendations
+notalwaysright.com##.mbl-bottom_story_prompt
+disqus.com###form
+disqus.com###comment-policy
+disqus.com###email-signup
+disqus.com###reactions
+notalwaysright.com###ad_mobile_leaderboard

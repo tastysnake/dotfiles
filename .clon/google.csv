@@ -1,0 +1,5 @@
+# comments begin with #
+# if soft links should be followed start line with ^
+# if root path should be added end line with ^
+#Downloads/share-phone^,Random
+Files/Brain^,Brain

@@ -1,0 +1,84 @@
+#!/bin/bash
+
+# options
+#
+# get public key list
+# get VPS list and IP
+# add key to account
+# add key to VPS
+
+token="$(head -n 1 ~/.apitoken)"
+sshkey="$(cat ~/.ssh/hostinger-website-key.pub)"
+baseurl="https://developers.hostinger.com/api/vps/v1"
+
+case "$1" in
+    # add SSH key
+    addkey)
+
+    curl "${baseurl}/public-keys" \
+        --request POST \
+        --header "Content-Type: application/json" \
+        --header "Authorization: Bearer $token" \
+        --data "{
+        \"name\": \"Fabi\",
+        \"key\": \"${sshkey}\"
+        }" \
+        | jq -r
+    ;;
+
+    # remove SSH key
+    delkey)
+
+    read -p "SSH ID: " sshid
+
+    curl "${baseurl}/public-keys/${sshid}" \
+        --request DELETE \
+        --header "Authorization: Bearer $token" \
+    ;;
+
+    # get keys
+    getkeys)
+
+    curl "${baseurl}/public-keys" \
+        --request GET \
+        --header "Authorization: Bearer $token" \
+        | jq '.data[0]'
+    ;;
+
+    # send SSH key to VPS
+    sendkey)
+
+    read -p "VPS ID: " vpsid
+    read -p "SSH key ID: " sshid
+
+    curl "${baseurl}/public-keys/attach/${vpsid}" \
+        --request POST \
+        --header "Content-Type: application/json" \
+        --header "Authorization: Bearer $token" \
+        --data "{
+            \"ids\": [ ${sshid} ]
+        }"
+    ;;
+
+    # get list of VPS
+    getvps)
+
+    curl "${baseurl}/virtual-machines" \
+        --header "Authorization: Bearer $token" \
+         | jq '[.[] | .id, .template.name, .ipv4.[].address]'
+    ;;
+
+    # export vars to command line
+    export)
+
+    authheader="Authorization: Bearer $token"
+    echo "$baseurl"
+    echo "$authheader"
+
+    ;;
+
+    # exit
+    *)
+    echo nashe
+    ;;
+esac

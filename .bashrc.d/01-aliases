@@ -1,0 +1,42 @@
+# python
+
+alias python="python3"
+
+
+# ls
+
+alias lh='ls -lh'
+alias la='ls -la'
+alias ll='ls -l'
+
+# follow link in folder name
+alias lL='ls -Ll'
+
+# only list folders
+# using 'find' 'cause ls doesn't do that easily
+alias lsd='find . -maxdepth 1 -type d'
+
+
+# df with relevant info
+# --total   = produce a total sum, ignore super small sizes
+# -h        = human-readable sizes
+# -t        = limit list to only certain filesystem types
+
+alias dfa='df --total -h -t vfat -t ext4 -t fuseblk'
+
+
+# vim
+
+alias vim="vimx --servername vim" # have server capabilities
+
+# aria2
+alias aria2=aria2c
+
+# clon
+alias clon="python3 ~/bin/clon.py"
+
+# remove loop devices from list
+alias fdisk-noloop="sudo fdisk -l | sed -e '/Festplatte \/dev\/loop/,+5d'"
+
+# git
+alias config="git --git-dir=\"$HOME/.dotfiles\" --work-tree=\"$HOME\""
