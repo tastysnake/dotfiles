@@ -35,6 +35,12 @@ alias aria2=aria2c
 # clon
 alias clon="python3 ~/bin/clon.py"
 
+# website
+alias hostinger-ftp="lftp ftp://${HUSER}.laptop:${HPW}@${HIP}"
+alias hostinger-ftps="sftp -oPort=65002 ${HUSER}@${HIP}"
+alias hostinger-ssh="ssh -p 65002 ${HUSER}@${HIP}"
+alias mysql-learn="mysql -u ${HUSER}_learnmysql -p'$MYSQLPW' -D ${HUSER}_learnmysql -h ${HIP}"
+
 # remove loop devices from list
 alias fdisk-noloop="sudo fdisk -l | sed -e '/Festplatte \/dev\/loop/,+5d'"
 
