@@ -33,7 +33,9 @@ alias beep='aplay $BEEP &> /dev/null'
 export PS1='\[\033[1m\]<\u@\h:\W \$> \[\033[0m\]'
 
 # ~/bin to PATH
-export PATH="${PATH}:${HOME}/bin"
+if [[ "$PATH" != *"$HOME/bin"* ]]; then
+    export PATH="${PATH}:${HOME}/bin"
+fi
 
 # QT5 for Okular and other QT apps
 export QT_QPA_PLATFORMTHEME=qt5ct
