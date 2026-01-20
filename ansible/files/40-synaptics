@@ -1,0 +1,66 @@
+Section "InputClass"
+        Identifier "libinput touchpad catchall"
+        MatchIsTouchpad "on"
+        MatchDevicePath "/dev/input/event*"
+        Driver "synaptics"
+
+    Option "HorizEdgeScroll" "1"
+    Option "VertEdgeScroll" "1"
+
+    Option "TapButton1" "1"
+    Option "TapButton2" "3"
+    Option "TapButton3" "2"
+
+# redefine touchpad since apparently
+# this one doesn't figure out the correct area
+# found out monitoring the touchpad with
+# evtest /dev/input/by-id/ y alguno de esos
+
+# 2022.04.25 - /dev/input/by-path/platform-AMDI0010:03-event-mouse
+
+# modify the touchpad to be able to click buttons
+# without moving the mouse!
+
+# leaves a small ~1 cm of touchpad at the
+# bottom and right edges, to do horizontal-vertical
+# scrolling without moving the mouse
+
+# limits: y=0 to 600
+# x=0 to 1200
+# looks to be super calibrated
+
+# 2022.04.25 -- X between 30 and 1220, Y between 0 and 745
+#            -- so a good start would be X = 0, 1100; Y = 0, 650
+    Option "LeftEdge" "0"
+    Option "RightEdge" "1100"
+    Option "TopEdge" "0"
+    Option "BottomEdge" "650"
+
+
+# Circular scrolling
+
+# (start vert/horiz scrolling and then move the
+# finger in a circle, it keeps scrolling until
+# you lift the finger)
+    Option "CircularScrolling" "1"
+    Option "CircScrollDelta" "0.15"
+
+# only start circular scrolling from right edge
+    Option "CircScrollTrigger" "3"
+
+
+# Locked dragging
+
+# Double tap and hold to drag something, then it
+# will not let go until you tap again, or you don't
+# tap but $LockedDragTimeout milliseconds pass
+    Option "LockedDrags" "1"
+    Option "LockedDragTimeout" "5000"
+
+# Palm detect
+#
+# Will modify sensitivity values if it doesn't work well
+    Option "PalmDetect" "1"
+    #Option "PalmMinWidth" "8"
+    #Option "PalmMinZ" "150"
+EndSection

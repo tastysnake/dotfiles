@@ -1,0 +1,6 @@
+Defaults editor = /usr/bin/vim
+
+Cmnd_Alias POWER_CMDS = /bin/systemctl suspend, /bin/systemctl poweroff, /bin/systemctl reboot
+Cmnd_Alias UPDATE_CMDS = {{ sudoers.cmd }}
+
+fabi scarlet = NOPASSWD: POWER_CMDS, UPDATE_CMDS

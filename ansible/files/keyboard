@@ -1,0 +1,39 @@
+xkb_symbols "fabi" {
+
+    include "es(basic)"
+
+    name[Group1]="Spanish (custom by Fabi)";
+
+    // masculine ordinal is the degree sign
+    key <TLDE>	{ [ degree, ordfeminine,    backslash,   backslash ]	};
+
+    // grave tilde and circumflex aren't dead keys
+    key <AD11>	{ [ grave, asciicircum, bracketleft, dead_abovering ] };
+
+    // tilde is not dead key
+    key <AC10>	{ [    ntilde, Ntilde,   asciitilde, dead_doubleacute ]	};
+
+    // add right brace in 4th level
+    key <AC11>	{ [dead_acute, dead_diaeresis, braceleft,  braceright ]	};
+
+    // less-than and greater-than
+    key <AB01>	{ [ z, Z, less, guillemotleft ]	};
+    key <AB02>	{ [ x, X, greater, guillemotright ]	};
+
+    // media keys
+    key <UP>    { [ Up, Up, XF86AudioPlay, XF86AudioPlay ] };
+    key <DOWN>  { [ Down, Down, XF86AudioStop, XF86AudioStop ] };
+    key <RGHT> { [ Right, Right, XF86AudioNext, XF86AudioNext ] };
+    key <LEFT> { [ Left, Left, XF86AudioPrev, XF86AudioPrev ] };
+
+    // long dash
+    key <AB10> { [ minus, underscore, U2014, plusminus ] };
+
+    // micro symbol
+    key <AD07> { [ u, U, mu, mu ] };
+
+    // German opening quotation
+    key <AE02> { [ 2, quotedbl, at, U201E ] };
+
+    include "level3(ralt_switch)"
+};

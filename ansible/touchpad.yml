@@ -1,0 +1,14 @@
+- name: Touchpad configuration
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Install Synaptics
+      ansible.builtin.dnf:
+        name: xorg-x11-drv-synaptics-legacy
+        state: present
+
+    - name: Touchpad configuration file
+      ansible.builtin.copy:
+        dest: /etc/X11/xorg.conf.d/40-synaptics.conf
+        src: files/40-synaptics

@@ -1,0 +1,25 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+#####
+# Clonezilla
+#####
+
+# partition should be FAT32
+
+# both root= and bootfrom= signal the FAT32 partition where Clonezilla is
+
+# live-media-path= is the name of the folder "live" inside the compressed zip
+# you download from their website
+
+# the ocs_prerun lines are for premounting the partition where images are gonna
+# be stored, so you don't need to do that every time
+
+menuentry "Clonezilla" {
+set root={{ clonezilla.root }}
+linux /{{ clonezilla.dirname }}/vmlinuz boot=live live-config noswap nolocales edd=on nomodeset ocs_live_run=\"ocs-live-general\" ocs_live_extra_param=\"\" keyboard-layouts=\"\" ocs_live_batch=\"no\" locales=\"\" vga=788 ip=frommedia nosplash live-media-path=/{{ clonezilla.dirname }} bootfrom={{ clonezilla.rootpart }} toram=filesystem.squashfs ocs_prerun="mount {{ clonezilla.backuppart }} /mnt" ocs_prerun1="mount --bind /mnt/{{ clonezilla.backupdir }} /home/partimag/"
+initrd /{{ clonezilla.dirname }}/initrd.img
+}
