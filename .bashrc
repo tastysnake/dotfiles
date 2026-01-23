@@ -41,4 +41,5 @@ fi
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 # Use Vim as editor
-export EDITOR="/usr/bin/vimx"
+# desktop uses Ubuntu
+export EDITOR="/usr/bin/vim"
