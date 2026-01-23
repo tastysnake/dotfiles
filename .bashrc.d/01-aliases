@@ -27,7 +27,8 @@ alias dfa='df --total -h -t vfat -t ext4 -t fuseblk'
 
 # vim
 
-alias vim="vimx --servername vim" # have server capabilities
+# desktop has Ubuntu, binary is vim as-is
+alias vim="vim --servername vim" # have server capabilities
 
 # aria2
 alias aria2=aria2c
