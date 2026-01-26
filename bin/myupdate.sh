@@ -9,7 +9,7 @@ DISTRO=$( grep -m 1 "^ID" /etc/os-release | cut -d'=' -f 2 )
 if [ "$DISTRO" == "ubuntu" ]; then
     sudo apt dist-upgrade -y
 else
-    sudo dnf upgrade -y
+    sudo dnf update -y
 fi
 
 notify-send "Software updates" "System is up-to-date."
