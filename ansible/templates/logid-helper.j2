@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# systemctl will restart if service exits
+# use that to my favor
+
+SERVICE=logid
+TIMEOUT=5
+DETECTED=""
+
+# check if mouse detected
+while read -r line; do
+    echo "$line" | grep -q "{{ logid.mousename }}"
+    if [ $? -eq 0 ]; then
+        DETECTED="yes"
+        break
+    fi
+# times out after some time
+done < <( timeout $TIMEOUT journalctl -f -u $SERVICE -S \
+    "$(systemctl show $SERVICE --property=ExecMainStartTimestamp | cut -d '=' -f 2)" )
+
+# restart service if mouse not detected
+if [ -z "$DETECTED" ]; then exit 1; fi
+
+# check if mouse came back from low-power state and restart
+while read -r line; do
+    echo "$line" | grep -q "woke up" 
+    if [ $? -eq 0 ]; then
+        exit 1
+    fi
+done < <(journalctl -f -S now -u logid)
