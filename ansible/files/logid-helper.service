@@ -1,0 +1,13 @@
+[Unit]
+Description=Logitech Configuration Daemon (helper)
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/logid-helper
+User=root
+Restart=always
+RestartSec=0
+
+[Install]
+WantedBy=graphical.target

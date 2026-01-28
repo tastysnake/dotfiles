@@ -1,0 +1,118 @@
+- name: Install logiops
+  hosts: localhost
+  connection: local
+  vars:
+    srcdir: /usr/local/src/logiops
+    logiexample: "{{ srcdir }}/logid.example.cfg"
+    logireadme: "{{ srcdir }}/README.md"
+    logibin: "{{ srcdir }}/logid"
+    systemd: /etc/systemd/system
+  vars_files: vars/shared.yml
+  become: true
+  tasks:
+
+    - name: Create dir
+      ansible.builtin.file:
+        state: directory
+        path: "{{ srcdir }}"
+
+    - name: Clone repo
+      ansible.builtin.git:
+        repo: https://github.com/PixlOne/logiops.git
+        clone: true
+        dest: "{{ srcdir }}"
+      when: logireadme is not exists
+
+    - name: Install dependencies
+      ansible.builtin.apt:
+        name:
+          - build-essential
+          - cmake
+          - pkg-config
+          - libevdev-dev
+          - libudev-dev
+          - libconfig++-dev
+          - libglib2.0-dev
+          - solaar      # this is the other Logitech tool
+        state: latest
+      changed_when: false
+
+    - name: Build dir
+      ansible.builtin.file:
+        state: directory
+        path: "{{ srcdir }}/build"
+
+    - name: Make with cmake
+      ansible.builtin.command:
+        argv:
+          - cmake
+          - -DCMAKE_BUILD_TYPE=Release
+          - ..
+        chdir: "{{ srcdir }}/build"
+      changed_when: false
+      when: logiexample is not file
+
+    - name: Make with make
+      ansible.builtin.command:
+        cmd: make
+        chdir: "{{ srcdir }}/build"
+      changed_when: false
+      when: logibin is not file
+
+    - name: Remove Git tracking
+      ansible.builtin.file:
+        path: "{{ srcdir }}/.git"
+        state: absent
+
+    - name: Install service
+      ansible.builtin.command:
+        cmd: make install
+        chdir: "{{ srcdir }}/build"
+
+    - name: Systemd override logid directory
+      ansible.builtin.file:
+        state: directory
+        path: "{{ systemd }}/logid.service.d"
+
+    - name: Systemd override logid service
+      ansible.builtin.copy:
+        src: files/logid.conf
+        dest: "{{ systemd }}/logid.service.d/override.conf"
+
+    - name: Logid helper script
+      ansible.builtin.template:
+        src: templates/logid-helper.j2
+        dest: /usr/local/bin/logid-helper
+        mode: 0755
+
+    - name: Logid helper service
+      ansible.builtin.copy:
+        src: files/logid-helper.service
+        dest: "{{ systemd }}/logid-helper.service"
+
+    - name: Logid gesture configuration
+      ansible.builtin.template:
+        src: templates/logid.cfg.j2
+        dest: /etc/logid.cfg
+
+    - name: Solaar service
+      ansible.builtin.copy:
+        src: files/solaar.service
+        dest: "{{ systemd }}/solaar.service"
+
+    # needs to reload files I copied
+    - name: Enable Solaar
+      ansible.builtin.systemd:
+        name: solaar
+        enabled: true
+        state: started
+        daemon-reload: true
+
+    - name: Enable Logid
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop:
+        - logid-helper
+        - logid
