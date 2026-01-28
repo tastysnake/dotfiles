@@ -1,0 +1,14 @@
+clonezilla:
+  root: (hd0,gpt6)
+  rootpart: /dev/nvme0n1p6
+  backuppart: /dev/sda2
+  backupdir: Backup
+  dirname: live-hd
+
+sudoers:
+  cmd: /usr/bin/apt dist-upgrade -y, /usr/bin/apt autoremove --purge -y, /usr/bin/apt clean
+
+keyboard:
+  path: /usr/share/X11/xkb/symbols/es
+  path_backup: /usr/share/X11/xkb/symbols/es.backup
+  options: caps:escape,shift:both_capslock,terminate:ctrl_alt_bksp
