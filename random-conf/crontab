@@ -33,5 +33,3 @@ PATH=/home/fabi/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 0 23 * * * ~/bin/myupdate.sh
 # Backup crontab file
 0 23 * * * ~/random-conf/crontab.sh
-# Backup list of installed programs
-0 23 * * * rpm -qa > ~/conf/dpkg-dump
