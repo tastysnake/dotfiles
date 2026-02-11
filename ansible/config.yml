@@ -2,14 +2,23 @@
   hosts: localhost
   connection: local
   become: true
+  vars:
+    thishost: "{{ ansible_facts.hostname }}"
   tasks:
     - name: Hostname variables
-      include_vars: "vars/{{ ansible_facts['hostname'] }}.yml"
+      include_vars: "vars/{{ thishost }}.yml"
 
     - name: Clonezilla menu entry
       ansible.builtin.template:
         dest: /etc/grub.d/40_custom
         src: templates/40_custom.j2
+
+    - name: Regenerate GRUB menu
+      ansible.builtin.command:
+        argv:
+          - grub-mkconfig
+          - -o
+          - /boot/grub/grub.cfg
 
     - name: No-password sudo entries
       ansible.builtin.template:

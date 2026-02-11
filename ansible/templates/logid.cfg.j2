@@ -1,0 +1,109 @@
+devices: (
+{
+    name: "{{ logid.mousename }}";
+    dpi: 2100;
+    buttons: (
+        {
+            cid: 0x53;
+            action =
+            {
+                type: "Keypress";
+                keys: ["KEY_LEFTCTRL", "KEY_C"];
+            };
+        },
+        {
+            cid: 0x56;
+            action =
+            {
+                type: "Keypress";
+                keys: ["KEY_LEFTCTRL", "KEY_V"];
+            };
+        },
+        {
+            cid: 0xc3;
+            action =
+            {
+                type: "Gestures";
+                gestures: (
+                    {
+                        direction: "Up";
+                        mode: "OnRelease";
+                        action =
+                        {
+                            type: "Keypress";
+                            keys: ["KEY_LEFTCTRL", "KEY_LEFTALT", "KEY_LEFTSHIFT", "KEY_F1"];
+                        };
+                    },
+                    {
+                        direction: "Down";
+                        mode: "OnRelease";
+                        action =
+                        {
+                            type: "Keypress";
+                            keys: ["KEY_LEFTCTRL", "KEY_LEFTALT", "KEY_LEFTSHIFT", "KEY_F2"];
+                        };
+                    },
+                    {
+                        direction: "Left";
+                        mode: "OnRelease";
+                        action =
+                        {
+                            type: "Keypress";
+                            keys: ["KEY_LEFTCTRL", "KEY_LEFTALT", "KEY_LEFTSHIFT", "KEY_F3"];
+                        };
+                    },
+                    {
+                        direction: "Right";
+                        mode: "OnRelease";
+                        action =
+                        {
+                            type: "Keypress";
+                            keys: ["KEY_LEFTCTRL", "KEY_LEFTALT", "KEY_LEFTSHIFT", "KEY_F4"];
+                        }
+                    },
+                    {
+                        direction: "None"
+                        mode: "OnRelease";
+                        action =
+                        {
+                            type: "Keypress";
+                            keys: ["KEY_LEFTCTRL", "KEY_LEFTALT", "KEY_LEFTSHIFT", "KEY_F5"];
+                        }
+                        
+                    }
+                );
+            };
+        }
+    );
+
+    thumbwheel: {
+        divert: true;
+        invert: true;
+
+        // Press and hold Alt when movement begins; release when it stops
+        proxy: { 
+            type: "Keypress"; 
+            keys: ["KEY_LEFTALT"]; 
+        };
+
+        // Send a Tab press for every X units of movement
+        left: {
+            mode: "OnInterval";
+            interval: 2; // Decrease for more sensitivity, increase for less
+            action: {
+                type: "Keypress";
+                keys: ["KEY_TAB"];
+            };
+        };
+
+        right: {
+            mode: "OnInterval";
+            interval: 2;
+            action: {
+                type: "Keypress";
+                keys: ["KEY_LEFTSHIFT", "KEY_TAB"]; // Tab backwards
+            };
+        };
+    };
+}
+);

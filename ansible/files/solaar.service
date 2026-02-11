@@ -1,0 +1,13 @@
+[Unit]
+Description=Solaar - Logi Battery monitor
+StartLimitIntervalSec=0
+Wants=graphical.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/solaar --window=hide
+User=fabi
+Restart=on-failure
+RestartSec=5
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/fabi/.Xauthority
