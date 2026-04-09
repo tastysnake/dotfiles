@@ -18,3 +18,8 @@ desktop.ini
 *.out
 *.tdo
 *.toc
+workspace.json
+workspace-mobile.json
+appearance.json
+community-plugins.json
+core-plugins.json
