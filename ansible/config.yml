@@ -16,9 +16,9 @@
     - name: Regenerate GRUB menu
       ansible.builtin.command:
         argv:
-          - grub-mkconfig
+          - grub2-mkconfig
           - -o
-          - /boot/grub/grub.cfg
+          - /boot/grub2/grub.cfg
 
     - name: No-password sudo entries
       ansible.builtin.template:

@@ -1,7 +1,7 @@
 clonezilla:
-  root: (hd0,gpt6)
-  rootpart: /dev/nvme0n1p6
-  backuppart: /dev/nvme0n1p4
+  root: (hd0,gpt5)
+  rootpart: /dev/nvme0n1p5
+  backuppart: /dev/nvme0n1p3
   backupdir: Backup
   dirname: live-hd
 
