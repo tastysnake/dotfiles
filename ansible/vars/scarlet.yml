@@ -6,7 +6,7 @@ clonezilla:
   dirname: live-hd
 
 sudoers:
-  cmd: /usr/bin/dnf update, /usr/bin/dnf autoremove -y, /usr/bin/dnf clean all
+  cmd: /usr/bin/dnf update -y, /usr/bin/dnf autoremove -y, /usr/bin/dnf clean all
 
 keyboard:
   path: /usr/share/X11/xkb/symbols/es
