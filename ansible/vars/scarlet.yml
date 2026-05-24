@@ -1,12 +1,12 @@
 clonezilla:
-  root: (hd0,gpt6)
-  rootpart: /dev/nvme0n1p6
-  backuppart: /dev/nvme0n1p4
+  root: (hd0,gpt5)
+  rootpart: /dev/nvme0n1p5
+  backuppart: /dev/nvme0n1p3
   backupdir: Backup
   dirname: live-hd
 
 sudoers:
-  cmd: /usr/bin/dnf update, /usr/bin/dnf autoremove -y, /usr/bin/dnf clean all
+  cmd: /usr/bin/dnf update -y, /usr/bin/dnf autoremove -y, /usr/bin/dnf clean all
 
 keyboard:
   path: /usr/share/X11/xkb/symbols/es

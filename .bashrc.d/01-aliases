@@ -22,13 +22,20 @@ alias lsd='find . -maxdepth 1 -type d'
 # -h        = human-readable sizes
 # -t        = limit list to only certain filesystem types
 
-alias dfa='df --total -h -t vfat -t ext4 -t fuseblk'
+# Fedora has BTRFS
+if $ISDEB; then
+    alias dfa='df --total -h -t vfat -t ext4 -t fuseblk'
+else
+    alias dfa='df --total -h -t vfat -t ext4 -t fuseblk -t btrfs'
+fi
 
 
-# vim
-
-# desktop has Ubuntu, binary is vim as-is
-alias vim="vim --servername vim" # have server capabilities
+# vim with server capabilities
+if $ISDEB; then
+    alias vim="vim --servername vim"
+else
+    alias vim="vimx --servername vim" # Fedora has different name
+fi
 
 # aria2
 alias aria2=aria2c

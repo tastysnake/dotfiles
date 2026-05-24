@@ -31,10 +31,11 @@ Section "InputClass"
 
 # 2022.04.25 -- X between 30 and 1220, Y between 0 and 745
 #            -- so a good start would be X = 0, 1100; Y = 0, 650
+# 2026.05.11 -- new laptop is wider
     Option "LeftEdge" "0"
-    Option "RightEdge" "1100"
+    Option "RightEdge" "1300"
     Option "TopEdge" "0"
-    Option "BottomEdge" "650"
+    Option "BottomEdge" "800"
 
 
 # Circular scrolling
