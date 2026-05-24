@@ -14,6 +14,13 @@ export PATH
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
+# check distro
+export ISDEB=false
+
+if grep -i ubuntu /etc/os-release; then
+    export ISDEB=true
+fi
+
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
@@ -23,7 +30,6 @@ if [ -d ~/.bashrc.d ]; then
     done
 fi
 unset rc
-
 
 # Personal entry to get a "beep" in the console
 export BEEP="${HOME}/.local/share/pop.wav"
@@ -37,8 +43,5 @@ if [[ "$PATH" != *"$HOME/bin"* ]]; then
     export PATH="${PATH}:${HOME}/bin"
 fi
 
-# QT5 for Okular and other QT apps
-export QT_QPA_PLATFORMTHEME=qt5ct
-
 # Use Vim as editor
-export EDITOR="/usr/bin/vimx"
+export EDITOR=vim
