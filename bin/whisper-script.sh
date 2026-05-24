@@ -7,6 +7,12 @@ OUTPUT_FILE="$2"
 MODEL_DIR=/mnt/Files/WhisperModels
 MODEL=large-v3-turbo-q5_0
 
+# exit if not present
+if ! which whisper-cli &>/dev/null; then
+    echo "Missing whisper-cli binary."
+    exit 1
+fi
+
 if [ -z "$INPUT_FILE" ]; then
     echo "Usage: $0 <input_mp3>"
     exit 1
