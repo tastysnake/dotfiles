@@ -1,2 +1,6 @@
 logid:
+  # can run sudo logid and shake mouse to see
   mousename: MX Master 3S
+  # visible with lsusb
+  idvendor: 046d
+  idproduct: c548

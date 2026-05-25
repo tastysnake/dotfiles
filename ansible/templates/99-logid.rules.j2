@@ -1,0 +1,5 @@
+# Start the wrapper when the receiver is plugged in
+ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="{{ logid.idvendor }}", ATTRS{idProduct}=="{{ logid.idproduct }}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="logid.service"
+
+# Stop the wrapper when the receiver is removed
+ACTION=="remove", SUBSYSTEM=="usb", ENV{ID_VENDOR_ID}=="{{ logid.idvendor }}", ENV{ID_MODEL_ID}=="{{ logid.idproduct }}", RUN+="/usr/bin/systemctl stop logid.service"
