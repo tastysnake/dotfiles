@@ -45,3 +45,7 @@ fi
 
 # Use Vim as editor
 export EDITOR=vim
+
+# Remove limits on history list and history file
+export HISTSIZE=-1
+export HISTFILESIZE=-1
