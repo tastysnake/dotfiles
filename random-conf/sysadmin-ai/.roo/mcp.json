@@ -1,0 +1,59 @@
+{
+	"mcpServers": {
+		"text-classifier": {
+			"command": "./mcp-servers/text-classifier/venv/bin/python3",
+			"args": [
+				"./mcp-servers/text-classifier/text-classifier.py"
+			],
+			"alwaysAllow": [
+				"choose_option",
+				"score_rubric",
+				"assess_hypothesis",
+				"analyze_state"
+			],
+			"disabled": false
+		},
+		"ssh-connect": {
+			"command": "./mcp-servers/ssh-connect",
+			"disabled": false,
+			"disabledTools": [
+				"vps_redis",
+				"vps_nginx_config",
+				"vps_health_check",
+				"vps_docker",
+				"vps_cron",
+				"ubuntu_update_packages",
+				"ubuntu_ufw_firewall",
+				"ubuntu_ssl_certificate",
+				"ubuntu_nginx_control",
+				"ubuntu_mysql",
+				"switch_network_diagnostics",
+				"switch_backup_config",
+				"run_on_fleet",
+				"connect",
+				"disconnect",
+				"download_config",
+				"enable",
+				"expect_send",
+				"list_com_ports",
+				"list_hosts",
+				"vps_system_stats",
+				"vps_process",
+				"vps_logs",
+				"vps_file_read",
+				"vps_file_ops",
+				"upload_config",
+				"ubuntu_website_deployment",
+				"ubuntu_service_control",
+				"ssh_list_files",
+				"login",
+				"run_command",
+				"run_commands"
+			],
+			"alwaysAllow": [
+				"list_sessions",
+				"ssh_connect"
+			]
+		}
+	}
+}
