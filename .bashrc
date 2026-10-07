@@ -36,7 +36,10 @@ export BEEP="${HOME}/.local/share/pop.wav"
 alias beep='aplay $BEEP &> /dev/null'
 
 # As I don't like the prompt, here's mine
-export PS1='\[\033[1m\]<\u@\h:\W \$> \[\033[0m\]'
+#export PS1='\[\033[1m\]<\u@\h:\W \$> \[\033[0m\]'
+export PS1='\n\[\033[1m\]\u@\h\[\033[0m\] \t :: \w\n \[\033[1m\]\$ \[\033[0m\]'
+# only three dirs
+export PROMPT_DIRTRIM=3
 
 # ~/bin to PATH
 if [[ "$PATH" != *"$HOME/bin"* ]]; then
@@ -49,3 +52,5 @@ export EDITOR=vim
 # Remove limits on history list and history file
 export HISTSIZE=-1
 export HISTFILESIZE=-1
+# And add date time
+export HISTTIMEFORMAT="%F %t "
